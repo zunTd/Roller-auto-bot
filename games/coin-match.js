@@ -31,6 +31,7 @@
     GRID_ROWS: 8,
     CELL_SIZE: 80,
     GRID_OFFSET_X: 160,
+    GRID_OFFSET_Y: 32,
     SWAP_COOLDOWN_MS: 700,
     SWAP_STABLE_FRAMES: 3,
     SWAP_MAX_CONFIRMATION_FRAMES: 6,
@@ -84,7 +85,7 @@
   }
 
   function _getCanvas() {
-    var canvas = document.querySelector('canvas') || document.querySelector('#phaserGame canvas');
+    var canvas = document.querySelector('#phaserGame canvas') || document.querySelector('canvas');
     if (!canvas || !canvas.width || !canvas.height) return null;
     return canvas;
   }
