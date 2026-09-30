@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 340px;
+      padding: 14px;
+      background: #0D0F1A;
+      color: #E2E8F0;
+      font: 13px 'Inter', system-ui, sans-serif;
+    }
+    .header, .brand, .header-actions, .card-label, .toggle-row, .toggle-label, .footer {
+      display: flex;
+      align-items: center;
+    }
+    .header, .footer { justify-content: space-between; }
+    .header { padding-bottom: 12px; margin-bottom: 10px; border-bottom: 1px solid #1E2545; }
+    .brand { gap: 9px; }
+    .brand-icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      overflow: hidden;
+      background: white;
+    }
+    .brand-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .header-title { color: white; font-weight: 700; }
+    .header-sub { margin-top: 2px; color: #718096; font-size: 10px; }
+    .popout-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #30364F;
+      border-radius: 6px;
+      background: #141728;
+      color: #A0AEC0;
+      cursor: pointer;
+    }
+    .popout-btn { width: 28px; height: 28px; }
+    .popout-btn:hover { border-color: #FF3D6B; color: white; }
+    .card {
+      margin-bottom: 9px;
+      padding: 10px 12px;
+      border: 1px solid #252A42;
+      border-radius: 8px;
+      background: #141728;
+    }
+    .card-label {
+      gap: 6px;
+      margin-bottom: 7px;
+      color: #8993A9;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .card-label svg { color: #FF3D6B; }
+    .toggle-row { justify-content: space-between; min-height: 32px; }
+    .toggle-row + .toggle-row { border-top: 1px solid #252A42; }
+    .toggle-label { gap: 7px; color: #CBD5E0; font-size: 12px; }
+    .toggle { position: relative; width: 34px; height: 19px; flex: 0 0 auto; }
+    .toggle input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: #30364F;
+      cursor: pointer;
+    }
+    .toggle-track::after {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #A0AEC0;
+      content: '';
+      transition: transform 0.18s, background 0.18s;
+    }
+    .toggle input:checked + .toggle-track { background: rgba(255, 61, 107, 0.35); }
+    .toggle input:checked + .toggle-track::after { transform: translateX(15px); background: #FF3D6B; }
+    .toggle input:focus-visible + .toggle-track { outline: 2px solid #60A5FA; outline-offset: 2px; }
+    .btn {
+      width: 100%;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid #2563EB;
+      border-radius: 7px;
+      background: #1E3A5F;
+      color: #93C5FD;
+      cursor: pointer;
+      font: 600 12px 'Inter', system-ui, sans-serif;
+    }
+    .btn:hover { filter: brightness(1.12); }
+    .btn:disabled { cursor: not-allowed; }
+    .btn-auto { margin-bottom: 9px; }
+    .btn-auto.active { border-color: #FF3D6B; background: #FF3D6B; color: white; }
+    .bot-badge {
+      display: none;
+      padding: 2px 5px;
+      border: 1px solid rgba(255, 61, 107, 0.35);
+      border-radius: 4px;
+      background: rgba(255, 61, 107, 0.15);
+      color: #FF6B8B;
+      font-size: 8px;
+      font-weight: 700;
+    }
+    .update-banner {
+      display: none;
+      margin-bottom: 9px;
+      padding: 10px;
+      border: 1px solid rgba(255, 61, 107, 0.4);
+      border-radius: 8px;
+      background: rgba(255, 61, 107, 0.08);
+      font-size: 11px;
+    }
+    .update-banner-title { display: flex; align-items: center; gap: 5px; color: #FF6B8B; font-weight: 700; }
+    .update-banner-sub { margin: 5px 0 8px; color: #A0AEC0; line-height: 1.4; }
+    .btn-update { border-color: #FF3D6B; background: #FF3D6B; color: white; }
+    .footer { margin-top: 10px; padding-top: 9px; border-top: 1px solid #1E2545; }
+    .footer-credit { color: #718096; font-size: 10px; }
+    .btn-github {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 8px;
+      border: 1px solid #30364F;
+      border-radius: 6px;
+      color: #A0AEC0;
+      font-size: 10px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="update-banner" id="update-banner">
+    <div class="update-banner-title">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      <span>New Version Available!</span>
+    </div>
+    <div class="update-banner-sub" id="update-banner-sub">A new version has been released. Please update to use Auto-Play.</div>
+    <button class="btn btn-update" id="btn-update">Download Update</button>
+  </div>
+
+  <header class="header">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <img src="icon48.png" alt="">
+      </div>
+      <div>
+        <div class="header-title">RC Helper</div>
+        <div class="header-sub">rollercoin.com</div>
+      </div>
+    </div>
+    <button class="popout-btn" id="btn-popout" title="Open in separate window" aria-label="Open in separate window">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><path d="M10 14 21 3"/><path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
+    </button>
+  </header>
+
+  <section class="card" aria-labelledby="settings-title">
+    <div class="card-label" id="settings-title">Settings</div>
+    <div class="toggle-row">
+      <span class="toggle-label">Auto Collect</span>
+      <label class="toggle" aria-label="Auto Collect"><input type="checkbox" id="chk-collect" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row" id="row-fast-next" title="Claims the reward right away and starts the next game without waiting for the Go home / Choose game screen.">
+      <span class="toggle-label">Fast Next Game</span>
+      <label class="toggle" aria-label="Fast Next Game"><input type="checkbox" id="chk-fast-next"><span class="toggle-track"></span></label>
+    </div>
+  </section>
+
+  <button class="btn btn-auto" id="btn-auto">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="m5 3 14 9-14 9z"/></svg>
+    <span id="auto-play-lbl">Auto-Play: OFF</span>
+  </button>
+
+  <section class="card" id="bots-card" aria-labelledby="bots-title">
+    <div class="card-label" id="bots-title">Game Bots</div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Coin Fisher</span><span class="bot-badge" id="badge-fisher">PLAYING</span></span>
+      <label class="toggle" aria-label="Coin Fisher"><input type="checkbox" id="chk-bot-fisher" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Hamster Climber</span><span class="bot-badge" id="badge-hamster">PLAYING</span></span>
+      <label class="toggle" aria-label="Hamster Climber"><input type="checkbox" id="chk-bot-hamster" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>2048 Coins</span><span class="bot-badge" id="badge-2048">PLAYING</span></span>
+      <label class="toggle" aria-label="2048 Coins"><input type="checkbox" id="chk-bot-2048" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Flappy Rocket</span><span class="bot-badge" id="badge-rocket">PLAYING</span></span>
+      <label class="toggle" aria-label="Flappy Rocket"><input type="checkbox" id="chk-bot-rocket" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Coin Flip</span><span class="bot-badge" id="badge-coinflip">PLAYING</span></span>
+      <label class="toggle" aria-label="Coin Flip"><input type="checkbox" id="chk-bot-coinflip" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Coin Click</span><span class="bot-badge" id="badge-coinclick">PLAYING</span></span>
+      <label class="toggle" aria-label="Coin Click"><input type="checkbox" id="chk-bot-coinclick" checked><span class="toggle-track"></span></label>
+    </div>
+    <div class="toggle-row">
+      <span class="toggle-label"><span>Coin Match</span><span class="bot-badge" id="badge-coinmatch">PLAYING</span></span>
+      <label class="toggle" aria-label="Coin Match"><input type="checkbox" id="chk-bot-coinmatch" checked><span class="toggle-track"></span></label>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-credit">By <span>TDZun</span></div>
+    <a class="btn-github" href="https://github.com/zunTd/Rollerbot" target="_blank" id="btn-github" rel="noreferrer">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

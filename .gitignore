@@ -1,0 +1,12 @@
+*.webp
+*.zip
+node_modules/
+.DS_Store
+Thumbs.db
+release.sh
+kitty_release.sh
+LICENSE
+.github/
+.windsurf/
+GITHUB_CONTEXT_DETAILED.md
+make_release_body.py
