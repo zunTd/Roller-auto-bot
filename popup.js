@@ -120,7 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'chk-bot-coinclick':      'botCoinClickEnabled',
     'chk-bot-rocket':         'botRocketEnabled',
     'chk-bot-coinflip':       'botCoinFlipEnabled',
-    'chk-bot-coinmatch':      'botCoinMatchEnabled'
+    'chk-bot-coinmatch':      'botCoinMatchEnabled',
+    'chk-bot-tokenblaster':   'botTokenBlasterEnabled'
   };
 
   chrome.storage.local.get(Object.values(BOT_KEYS), function(data) {
@@ -147,7 +148,8 @@ document.addEventListener('DOMContentLoaded', function() {
       coinclick: 'badge-coinclick',
       rocket: 'badge-rocket',
       coinflip:  'badge-coinflip',
-      coinmatch: 'badge-coinmatch'
+      coinmatch: 'badge-coinmatch',
+      tokenblaster: 'badge-tokenblaster'
     };
     Object.keys(map).forEach(function(k) {
       var el = document.getElementById(map[k]);

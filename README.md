@@ -5,7 +5,7 @@ RC Helper is a Chrome extension for RollerCoin. It selects supported games, runs
 ## Features
 
 - Automatically selects an enabled, supported game.
-- Includes bots for Hamster Climber, Coin Fisher, Coin Flip, Coin Match, Coin Click, 2048 Coins, and Flappy Rocket. Each bot can be toggled in the popup.
+- Includes bots for Hamster Climber, Coin Fisher, Coin Flip, Coin Match, Coin Click, 2048 Coins, Flappy Rocket, and Token Blaster. Each bot can be toggled in the popup.
 - Automatically collects available game rewards.
 - Fast Next Game can claim rewards and return to game selection without waiting for the final result screen.
 - Toggle each game bot independently from the popup.

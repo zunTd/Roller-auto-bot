@@ -111,7 +111,8 @@ const BOT_AUTOPLAY_GAME_SETTINGS = {
   'coin-fisher': 'botFisherEnabled',
   coinmatch: 'botCoinMatchEnabled',
   'coin match': 'botCoinMatchEnabled',
-  'coin-match': 'botCoinMatchEnabled'
+  'coin-match': 'botCoinMatchEnabled',
+  tokenblaster: 'botTokenBlasterEnabled'
 };
 
 function isBotAutoplayGameEnabled(gameName) {

@@ -9,7 +9,7 @@ const GAME_TIME_LIMITS_MS = {
   hamsterclimber: 60000,
   coinflip: 60000,
   flappyrocket: 30000,
-  '2048': 40000,
+  '2048': 75000,
 };
 const FAST_FINISH_OBSERVER_THROTTLE_MS = 200;
 const ACTIVE_GAME_STARTED_KEY = 'rc_active_game_started_at';
@@ -88,7 +88,7 @@ window.pickAndPlayRunning = false;
 var mainTimer = null;
 
 try {
-  chrome.storage.local.get(['autoPlay', 'autoChoose', 'autoCollect', 'fastNextGame', 'botFisherEnabled', 'botHamsterEnabled', 'bot2048Enabled', 'botCoinClickEnabled', 'botRocketEnabled', 'botCoinFlipEnabled', 'botCoinMatchEnabled'], (data) => {
+  chrome.storage.local.get(['autoPlay', 'autoChoose', 'autoCollect', 'fastNextGame', 'botFisherEnabled', 'botHamsterEnabled', 'bot2048Enabled', 'botCoinClickEnabled', 'botRocketEnabled', 'botCoinFlipEnabled', 'botCoinMatchEnabled', 'botTokenBlasterEnabled'], (data) => {
     if (!data) data = {};
     window.autoCollect = data.autoCollect !== false;
     window.fastNextGame = data.fastNextGame === true;
@@ -100,7 +100,8 @@ try {
       botCoinClickEnabled:     data.botCoinClickEnabled     !== false,
       botRocketEnabled:        data.botRocketEnabled        !== false,
       botCoinFlipEnabled:      data.botCoinFlipEnabled      !== false,
-      botCoinMatchEnabled:     data.botCoinMatchEnabled     !== false
+      botCoinMatchEnabled:     data.botCoinMatchEnabled     !== false,
+      botTokenBlasterEnabled:  data.botTokenBlasterEnabled  !== false
     };
     try {
       document.body.setAttribute('data-rc-bot-2048-enabled', (data.bot2048Enabled !== false) ? 'true' : 'false');
@@ -109,6 +110,7 @@ try {
       document.body.setAttribute('data-rc-bot-coinflip-enabled',  (data.botCoinFlipEnabled  !== false) ? 'true' : 'false');
       document.body.setAttribute('data-rc-bot-fisher-enabled',    (data.botFisherEnabled    !== false) ? 'true' : 'false');
       document.body.setAttribute('data-rc-bot-coinmatch-enabled', (data.botCoinMatchEnabled !== false) ? 'true' : 'false');
+      document.body.setAttribute('data-rc-bot-tokenblaster-enabled', (data.botTokenBlasterEnabled !== false) ? 'true' : 'false');
     } catch(e) {}
     if (typeof checkFastGameFinished === 'function') checkFastGameFinished();
     if (data.autoPlay) {
@@ -513,7 +515,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         coinclick:     document.body.getAttribute('data-rc-bot-coinclick-active') === 'true',
         rocket:        document.body.getAttribute('data-rc-bot-rocket-active') === 'true',
         coinflip:      document.body.getAttribute('data-rc-bot-coinflip-active') === 'true',
-        coinmatch:     !!(window._rcCoinMatch     && window._rcCoinMatch.isActive())
+        coinmatch:     !!(window._rcCoinMatch     && window._rcCoinMatch.isActive()),
+        tokenblaster:  document.body.getAttribute('data-rc-bot-tokenblaster-active') === 'true'
       }
     });
     return true;
@@ -539,6 +542,9 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       }
       if (msg.bot === 'botCoinMatchEnabled') {
         document.body.setAttribute('data-rc-bot-coinmatch-enabled', msg.enabled ? 'true' : 'false');
+      }
+      if (msg.bot === 'botTokenBlasterEnabled') {
+        document.body.setAttribute('data-rc-bot-tokenblaster-enabled', msg.enabled ? 'true' : 'false');
       }
 
     } catch(e) {}

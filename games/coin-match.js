@@ -281,7 +281,7 @@
         ? config.BLUE_GRAY_MIN_COVERAGE : config.COIN_COLOR_MIN_COVERAGE;
       var minPurity = winner.name === 'BLUE_GRAY'
         ? config.BLUE_GRAY_MIN_PURITY : config.COIN_COLOR_MIN_PURITY;
-      if (winner.name === 'XMR' || winner.name === 'YELLOW_SYMBOL') minPurity = 0.80;
+      if (winner.name === 'XMR' || winner.name === 'YELLOW_SYMBOL') minPurity = 0.65;
       if (coverage >= minCoverage && purity >= minPurity) {
         typeId = winnerIndex;
         typeName = winner.name;

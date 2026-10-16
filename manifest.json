@@ -23,7 +23,7 @@
     },
     {
       "matches": ["*://*.rollercoin.com/*", "*://rollercoin.com/*"],
-      "js": ["games/coins2048.js", "games/coinclick.js", "games/flappy-rocket.js", "games/coin-flip.js", "games/coin-fisher.js", "games/coin-match.js"],
+      "js": ["games/coins2048.js", "games/coinclick.js", "games/flappy-rocket.js", "games/coin-flip.js", "games/coin-fisher.js", "games/coin-match.js", "games/token-blaster.js"],
       "run_at": "document_end",
       "world": "MAIN"
     }
